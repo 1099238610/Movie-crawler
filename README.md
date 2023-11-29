@@ -13,9 +13,18 @@
    scrapy crawl douban_movies -o movie.json
    ```
    
-### IMDB爬虫
+## IMDB爬虫
+
 ### 介绍
 世界上最大的电影数据库, 目前支持爬取电影基本英文信息
+
+| 字段 | 解释 |
+| ---------|----------|
+| title | 电影名称 | 
+| rating | 评分, 范围 0 - 10 |
+| year | 上映年份 |
+| duration |  电影时长, 格式为 h mm, 例如 1h 25m |
+| MPA_rating | MPA 电影分级, 分为 G、PG、PG-13、R 和NC-17 |
 
 
 ### 使用方式
