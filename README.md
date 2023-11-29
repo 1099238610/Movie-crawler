@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/python-3.10.0-green?logo=python" alt="Author" /> <img src="https://img.shields.io/badge/scrapy-2.6.2-blue" alt="Author" /> <img src="https://img.shields.io/github/languages/top/1099238610/Movie-crawler?color=yellow" alt="languages-top" />
+
 # 🎬电影爬虫工具
 用于爬取电影网站上的各种数据
 
