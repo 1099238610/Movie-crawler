@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'Movie-crawler'
+BOT_NAME = 'douban_crawler'
 
-SPIDER_MODULES = ['Movie-crawler.spiders']
-NEWSPIDER_MODULE = 'Movie-crawler.spiders'
+SPIDER_MODULES = ['douban_crawler.spiders']
+NEWSPIDER_MODULE = 'douban_crawler.spiders'
 
 # 设置 UTF-8 格式编码, 用于解决中文转码格式问题
 FEED_EXPORT_ENCODING = 'utf-8'
@@ -19,6 +19,9 @@ FEED_EXPORT_ENCODING = 'utf-8'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+
+# 日志级别 CRITICAL, ERROR, WARNING, INFO, DEBUG
+LOG_LEVEL='DEBUG'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
