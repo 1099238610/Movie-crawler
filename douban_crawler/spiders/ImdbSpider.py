@@ -31,16 +31,19 @@ class DoubanMovieSpider(scrapy.Spider):
         option.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, "
                             "like Gecko) Chrome/58.0.3029.110 Safari/537.36")
         driver = webdriver.Chrome(options=option)
+        # 最大化窗口
+        driver.maximize_window()
+
         count = 0
 
         # 打开网页
         driver.get(response.url)
 
         try:
-            while count < 100:
+            while True:
 
                 # 等待按钮可见
-                wait = WebDriverWait(driver, 10)
+                wait = WebDriverWait(driver, 30)
 
                 # 等待新数据加载完成（根据实际情况调整等待条件）
                 wait.until(
@@ -63,7 +66,7 @@ class DoubanMovieSpider(scrapy.Spider):
                     yield {
                         'title': title,
                         'IMDB_rating': movie.find_element(By.XPATH,
-                                                     '//span[contains(@class, "ratingGroup--imdb-rating")]')
+                                                          '//span[contains(@class, "ratingGroup--imdb-rating")]')
                         .get_attribute('aria-label'),
 
                         'year': span_texts[0] if span_texts[0] else None,
@@ -72,17 +75,18 @@ class DoubanMovieSpider(scrapy.Spider):
                     }
 
                 # 获取按钮
-                button = wait.until(
-                    EC.visibility_of_element_located((By.XPATH, '//button[contains(@class, "ipc-see-more__button")]'))
-                )
+                button = driver.find_element(By.XPATH, '//button[contains(@class, "ipc-see-more__button")]')
 
-                # 使用execute_script平滑滚动到页面底部
-                driver.execute_script("arguments[0].scrollIntoView(true);", button)
+                # 使用execute_script滚动到 button 位置
+                driver.execute_script("arguments[0].scrollIntoView(false);", button)
+
+                # 等待按钮可见和可点击
+                wait.until(EC.element_to_be_clickable((By.XPATH, '//button[contains(@class, "ipc-see-more__button")]')))
+
+                time.sleep(5)
 
                 # 模拟点击按钮
                 button.click()
-
-                time.sleep(10)
         finally:
             # 关闭浏览器窗口
             driver.quit()
